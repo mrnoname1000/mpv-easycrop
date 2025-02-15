@@ -184,6 +184,7 @@ end
 local easycrop_stop = function ()
     mp.set_property("osc", osc_prop)
     cropping = false
+    mp.remove_key_binding("easycrop_mouse_move")
     mp.remove_key_binding("easycrop_mouse_btn0")
     draw_clear()
 end
@@ -234,6 +235,7 @@ local easycrop_start = function ()
     mp.set_property("osc", "no")
 
     cropping = true
+    mp.add_forced_key_binding("mouse_move", "easycrop_mouse_move", draw_cropper)
     mp.add_forced_key_binding("mouse_btn0", "easycrop_mouse_btn0", mouse_btn0_cb)
     draw_fill()
 end
@@ -246,7 +248,6 @@ local easycrop_activate = function ()
     end
 end
 
-mp.add_key_binding("mouse_move", draw_cropper)
 mp.observe_property("osd-width", "native", draw_cropper)
 mp.observe_property("osd-height", "native", draw_cropper)
 
